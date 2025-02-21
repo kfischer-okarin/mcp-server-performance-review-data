@@ -3,3 +3,4 @@
 source "https://rubygems.org"
 
 gem 'mcp-rb'
+gem 'dotenv'
