@@ -25,7 +25,7 @@ and add all necessary values
       "command": "just",
       "args": [
         "-f",
-        "/absolute/path/to/mcp-performace-review-data/Justfile",
+        "/absolute/path/to/mcp-server-performance-review-data/Justfile",
         "run"
       ]
     }
