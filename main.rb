@@ -9,7 +9,7 @@ require 'mcp'
 
 require_relative 'lib/tools'
 
-name 'performance-review-mcp-server'
+name 'performance_review_data'
 
 tool 'list_user_pull_request_activity' do
   description "Retrieve the user's pull request activity (opened and reviewed) from GitHub"

@@ -1,1 +1,1 @@
-# performance-review-mcp
+# Performance Review Data MCP Server
