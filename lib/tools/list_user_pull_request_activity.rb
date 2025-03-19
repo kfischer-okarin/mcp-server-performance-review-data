@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'time'
+require 'rexml/document'
 
 require_relative '../github_client'
 
@@ -55,22 +56,38 @@ module Tools
     end
 
     def generate_xml_output(pull_requests)
-      xml = []
-      xml << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-      xml << "<pull-request-activity month=\"#{@month}\">"
+      doc = REXML::Document.new
+      doc << REXML::XMLDecl.new('1.0', 'UTF-8')
+
+      root = REXML::Element.new('pull-request-activity')
+      root.add_attribute('month', @month)
+      doc.add_element(root)
 
       pull_requests.each do |pr|
         opened_at_local = pr[:opened_at].getlocal.iso8601
         description = truncate_text(pr[:body], 100)
 
-        xml << "  <pr repository=\"#{pr[:repository]}\" number=\"#{pr[:number]}\" opened_at=\"#{opened_at_local}\">"
-        xml << "    <title>#{escape_xml(pr[:title])}</title>"
-        xml << "    <description-preview>#{escape_xml(description)}</description-preview>"
-        xml << "  </pr>"
+        pr_element = REXML::Element.new('pr')
+        pr_element.add_attribute('repository', pr[:repository])
+        pr_element.add_attribute('number', pr[:number].to_s)
+        pr_element.add_attribute('opened_at', opened_at_local)
+
+        title = REXML::Element.new('title')
+        title.text = pr[:title]
+        pr_element.add_element(title)
+
+        desc = REXML::Element.new('description-preview')
+        desc.text = description
+        pr_element.add_element(desc)
+
+        root.add_element(pr_element)
       end
 
-      xml << "</pull-request-activity>"
-      xml.join("\n")
+      formatter = REXML::Formatters::Pretty.new(2)
+      formatter.compact = true
+      output = String.new
+      formatter.write(doc, output)
+      output
     end
 
     def truncate_text(text, max_length)
@@ -80,19 +97,6 @@ module Tools
         text
       else
         text[0...max_length] + '...'
-      end
-    end
-
-    def escape_xml(text)
-      return '' if text.nil?
-
-      text.gsub(/[&<>"]/) do |c|
-        case c
-        when '&' then '&amp;'
-        when '<' then '&lt;'
-        when '>' then '&gt;'
-        when '"' then '&quot;'
-        end
       end
     end
   end
