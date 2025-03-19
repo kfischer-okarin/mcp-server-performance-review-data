@@ -2,5 +2,5 @@
 
 source "https://rubygems.org"
 
-gem 'mcp-rb'
+gem 'mcp-rb', '~> 0.3'
 gem 'dotenv'
