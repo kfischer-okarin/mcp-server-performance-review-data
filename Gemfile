@@ -4,3 +4,4 @@ source "https://rubygems.org"
 
 gem 'mcp-rb', '~> 0.3'
 gem 'dotenv'
+gem 'octokit', '~> 9.0'
