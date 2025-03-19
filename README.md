@@ -1,1 +1,27 @@
 # Performance Review Data MCP Server
+## Installation
+
+### Requirements
+- (Technically optional) [`just`](https://github.com/casey/just) for easy command execution
+
+### Install gems
+```sh
+just install
+```
+
+### Add to MCP Client
+#### Claude
+```json
+{
+  "mcpServers": {
+    "performance_review_data": {
+      "command": "just",
+      "args": [
+        "-f",
+        "/absolute/path/to/mcp-performace-review-data/Justfile",
+        "run"
+      ]
+    }
+  }
+}
+```
