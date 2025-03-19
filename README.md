@@ -9,6 +9,13 @@
 just install
 ```
 
+### Set environment variables
+```sh
+cp .env.template .env
+```
+
+and add all necessary values
+
 ### Add to MCP Client
 #### Claude
 ```json
