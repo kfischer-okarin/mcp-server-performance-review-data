@@ -21,30 +21,17 @@ module Tools
     # Initialize the GitHub client once as a class variable
     @github_client = GitHubClient.new(access_token: @personal_access_token)
 
-    def initialize(month:)
-      @month = month
+    def initialize(start_date:, end_date:)
+      @start_date = Time.parse(start_date)
+      @end_date = Time.parse(end_date)
     end
 
     def call
-      start_date, end_date = calculate_date_range
-      pull_requests = fetch_pull_requests(start_date, end_date)
-
+      pull_requests = fetch_pull_requests(@start_date, @end_date)
       generate_xml_output(pull_requests)
     end
 
     private
-
-    def calculate_date_range
-      year, month = @month.split('-').map(&:to_i)
-      start_date = Time.new(year, month, 1)
-
-      # Calculate end date (last day of the month)
-      next_month = month == 12 ? 1 : month + 1
-      next_year = month == 12 ? year + 1 : year
-      end_date = Time.new(next_year, next_month, 1) - 1
-
-      [start_date, end_date]
-    end
 
     def fetch_pull_requests(start_date, end_date)
       self.class.github_client.search_user_pull_requests(
@@ -60,7 +47,8 @@ module Tools
       doc << REXML::XMLDecl.new('1.0', 'UTF-8')
 
       root = REXML::Element.new('pull-request-activity')
-      root.add_attribute('month', @month)
+      root.add_attribute('start_date', @start_date.strftime('%Y-%m-%d'))
+      root.add_attribute('end_date', @end_date.strftime('%Y-%m-%d'))
       doc.add_element(root)
 
       pull_requests.each do |pr|
