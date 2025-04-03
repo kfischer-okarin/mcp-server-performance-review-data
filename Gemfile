@@ -8,6 +8,8 @@ gem 'mcp-rb', '~> 0.3'
 gem 'dotenv'
 # For generating XML output
 gem 'rexml', '~> 3.4'
+# To provide a callback URL for OAuth2
+gem 'webrick', '~> 1.9'
 
 # For accessing GitHub API
 gem 'octokit', '~> 9.0'
