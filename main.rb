@@ -1,11 +1,11 @@
-require 'dotenv/load'
-require 'mcp'
+require "dotenv/load"
+require "mcp"
 
-require_relative 'lib/tools'
+require_relative "lib/tools"
 
-name 'performance_review_data'
+name "performance_review_data"
 
-tool 'list_user_pull_request_activity' do
+tool "list_user_pull_request_activity" do
   description <<~DESCRIPTION
     Retrieve the user's opened pull requests from GitHub within a specified date range.
 
@@ -13,14 +13,14 @@ tool 'list_user_pull_request_activity' do
   DESCRIPTION
 
   argument :start_date,
-           String,
-           required: true,
-           description: 'The start date for the activity (format: YYYY-MM-DD)'
+    String,
+    required: true,
+    description: "The start date for the activity (format: YYYY-MM-DD)"
 
   argument :end_date,
-           String,
-           required: true,
-           description: 'The end date for the activity (format: YYYY-MM-DD)'
+    String,
+    required: true,
+    description: "The end date for the activity (format: YYYY-MM-DD)"
 
   call do |args|
     Tools::ListUserPullRequestActivity.new(

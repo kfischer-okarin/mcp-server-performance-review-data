@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'octokit'
+require "octokit"
 
 # GitHub client wrapper with minimal interface
 class GitHubClient
@@ -10,16 +10,16 @@ class GitHubClient
 
   def search_user_pull_requests(username:, organization:, start_date:, end_date:)
     query_filters = [
-      'type:pr',
+      "type:pr",
       "author:#{username}",
       "org:#{organization}",
-      "created:#{start_date.strftime('%Y-%m-%d')}..#{end_date.strftime('%Y-%m-%d')}"
+      "created:#{start_date.strftime("%Y-%m-%d")}..#{end_date.strftime("%Y-%m-%d")}"
     ]
-    query = query_filters.join(' AND ')
+    query = query_filters.join(" AND ")
     result = @client.search_issues(query, per_page: 100, advanced_search: true)
 
     result.items.map do |pr|
-      repository = pr[:repository_url].split('/').last
+      repository = pr[:repository_url].split("/").last
       {
         repository: repository,
         number: pr[:number],

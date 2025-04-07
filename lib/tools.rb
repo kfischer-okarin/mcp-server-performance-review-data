@@ -1,1 +1,1 @@
-require_relative 'tools/list_user_pull_request_activity'
+require_relative "tools/list_user_pull_request_activity"
