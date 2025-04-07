@@ -4,5 +4,5 @@ install:
 run:
     bundle exec ruby main.rb
 
-format-code:
-    bundle exec standardrb --fix
+format-code target="":
+    bundle exec standardrb --fix {{target}}
