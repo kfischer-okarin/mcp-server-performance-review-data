@@ -3,7 +3,7 @@
 ## Build/Run Commands
 - Install dependencies: `just install`
 - Run the application: `just run`
-- Format the code `just format-code <filename>`
+- Format the code `just format-code <relative/path/to/filename>`
 
 Format each file you edit before finishing your work!
 
