@@ -1,0 +1,29 @@
+{
+    "display_information": {
+        "name": "Slack MCP Server Access",
+        "description": "A simple app to access conversation history",
+        "background_color": "#4A154B"
+    },
+    "oauth_config": {
+        "redirect_urls": [
+            "http://localhost:51111/oauth"
+        ],
+        "scopes": {
+            "user": [
+                "channels:history",
+                "channels:read",
+                "groups:history",
+                "groups:read",
+                "im:history",
+                "im:read",
+                "mpim:history",
+                "mpim:read"
+            ]
+        }
+    },
+    "settings": {
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": true
+    }
+}
